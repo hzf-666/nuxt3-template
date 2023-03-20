@@ -1,0 +1,27 @@
+<script setup>
+const showApp = ref(false), isMobile = store.useIsMobile(), config = useRuntimeConfig();
+const standardWidth = 750, mobileMaxWidth = 900; // 移动端设计图基准宽度，最大移动设备宽度
+onMounted(() => {
+  onResize();
+  window.addEventListener('resize', onResize);
+  showApp.value = true;
+});
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', onResize);
+});
+function onResize() {
+  const width = document.documentElement.clientWidth;
+  isMobile.value = width <= mobileMaxWidth;
+  if (config.public.responsive) {
+    document.documentElement.style.fontSize = `${ config.public.fontSizeScale * (width > mobileMaxWidth ? (standardWidth / 750 * 0.5) : (width / standardWidth)) }px`;
+  }
+}
+</script>
+
+<template>
+  <div v-show="showApp" id="app">
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
+</template>

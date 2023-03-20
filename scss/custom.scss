@@ -1,0 +1,124 @@
+* {
+  box-sizing: border-box;
+}
+
+// @font-face {
+//   font-family: HYZhengYuan;
+//   src: url("@/assets/font-family/HYZhengYuan.ttf") format("truetype");
+// }
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:active {
+    color: inherit;
+  }
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* stylelint-disable-next-line selector-id-pattern */
+#__nuxt {
+  width: 100%;
+  height: 100%;
+  background-color: #f7f7f7;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  font-family: $fontFamilyBase;
+  font-size: $fontSizeBase;
+  color: $textColorRegular;
+}
+
+/* 单行文本省略样式 */
+.els {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* 弹性盒子常用样式 */
+.d_f {
+  display: flex !important;
+}
+
+.d_if {
+  display: inline-flex !important;
+}
+
+.fw_w {
+  flex-wrap: wrap !important;
+}
+
+.jc_fs {
+  justify-content: flex-start !important;
+}
+
+.jc_c {
+  justify-content: center !important;
+}
+
+.jc_sa {
+  justify-content: space-around !important;
+}
+
+.jc_sb {
+  justify-content: space-between !important;
+}
+
+.jc_fe {
+  justify-content: flex-end !important;
+}
+
+.ai_s {
+  align-items: stretch !important;
+}
+
+.ai_b {
+  align-items: baseline !important;
+}
+
+.ai_fs {
+  align-items: flex-start !important;
+}
+
+.ai_c {
+  align-items: center !important;
+}
+
+.ai_fe {
+  align-items: flex-end !important;
+}
+
+.fg_0 {
+  flex-grow: 0 !important;
+}
+
+.fg_1 {
+  flex-grow: 1 !important;
+}
+
+.fs_0 {
+  flex-shrink: 0 !important;
+}
+
+.fs_1 {
+  flex-shrink: 1 !important;
+}
+
+.f_0 {
+  flex: 0 0 auto !important;
+}
+
+.f_1 {
+  flex: 1 1 auto !important;
+}

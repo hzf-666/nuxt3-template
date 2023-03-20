@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "./.comlint/.stylelintrc.json"
+  ],
+  "rules": {
+    "unit-no-unknown": [true, {
+      "ignoreUnits": ["rx"]
+    }]
+  }
+}

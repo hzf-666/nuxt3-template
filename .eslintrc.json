@@ -1,0 +1,44 @@
+{
+  "extends": [
+    "./.comlint/.eslintrc.json"
+  ],
+  "globals": {
+    /* nuxt3 */
+    "defineNuxtConfig": "readonly",
+    "defineNuxtRouteMiddleware": "readonly",
+    "defineEventHandler": "readonly",
+    "defineNuxtPlugin": "readonly",
+    "definePageMeta": "readonly",
+    "navigateTo": "readonly",
+    "useRuntimeConfig": "readonly",
+    "useState": "readonly",
+    "useFetch": "readonly",
+    "useCookie": "readonly",
+    "setCookie": "readonly",
+    "useRoute": "readonly",
+    "useRouter": "readonly",
+    /* vue3 */
+    "ref": "readonly",
+    "computed": "readonly",
+    "watch": "readonly",
+    "nextTick": "readonly",
+    "onMounted": "readonly",
+    "onUpdated": "readonly",
+    "onUnmounted": "readonly",
+    "onBeforeMount": "readonly",
+    "onBeforeUpdate": "readonly",
+    "onBeforeUnmount": "readonly",
+    "onActivated": "readonly",
+    "onDeactivated": "readonly",
+    "toRefs": "readonly",
+    "h": "readonly",
+    /* vueuse */
+    "useElementBounding": "readonly",
+    "useElementSize": "readonly",
+    /* 自定义 */
+    "store": "readonly",
+    "cookie": "readonly",
+    "http": "readonly",
+    "utils": "readonly"
+  }
+}

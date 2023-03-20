@@ -1,0 +1,87 @@
+{
+  "extends": [
+    "stylelint-config-recess-order",
+    "stylelint-config-standard",
+    "stylelint-config-recommended-scss"
+  ],
+  "rules": {
+    "selector-class-pattern": [
+      "^([a-z][a-z0-9]*)((-|_)+[a-z0-9]+)*$",
+      {
+        "message": "Expected class selector to be separated by - or _"
+      }
+    ],
+    "selector-id-pattern": [
+      "^([a-z][a-z0-9]*)([A-Z]+[a-z0-9]+)*$",
+      {
+        "message": "Expected class selector to be lower camel case"
+      }
+    ],
+    "no-empty-source": null,
+    "no-descending-specificity": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": [
+          "export",
+          "deep"
+        ]
+      }
+    ],
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": [
+          "v-deep"
+        ]
+      }
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreSelectors": [
+          ":export"
+        ]
+      }
+    ],
+    "property-case": [
+      "lower",
+      {
+        "ignoreSelectors": [
+          ":export"
+        ]
+      }
+    ],
+    "value-no-vendor-prefix": [
+      true,
+      {
+        "ignoreValues": [
+          "box"
+        ]
+      }
+    ],
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreFunctions": [
+          "v-bind"
+        ]
+      }
+    ],
+    "scss/dollar-variable-pattern": [
+      "^([a-z][a-z0-9]*)([A-Z]+[a-z0-9]+)*$",
+      {
+        "message": "Expected variable to be lower camel case"
+      }
+    ],
+    "scss/at-import-partial-extension": null
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.{html,vue}"
+      ],
+      "customSyntax": "postcss-html"
+    }
+  ]
+}
