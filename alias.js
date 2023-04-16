@@ -1,13 +1,13 @@
 import { resolve as _resolve } from 'pathe';
 
-export function resolve(dir) {
-  return _resolve(__dirname, dir);
-}
-
 const alias = {
   '@': './',
   '@a': './assets',
 };
+
+export function resolve(dir) {
+  return _resolve(__dirname, dir);
+}
 
 export function getAlias(fn) {
   const result = {};
