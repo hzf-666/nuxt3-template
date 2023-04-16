@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { resolve } from 'pathe';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import { getAlias, resolve } from './alias.js';
 
 const fontSizeScale = 100;
 
@@ -12,9 +12,7 @@ export default defineNuxtConfig({
       vconsole: true,
     },
   },
-  alias: {
-    '@a': resolve(__dirname, './assets'),
-  },
+  alias: getAlias(resolve),
   modules: [
     '@vueuse/nuxt',
   ],
@@ -46,7 +44,7 @@ export default defineNuxtConfig({
     plugins: [
       createSvgIconsPlugin({
         iconDirs: [ // 指定需要缓存的图标文件夹
-          resolve(__dirname, './assets/iconsvg'),
+          resolve('./assets/iconsvg'),
         ],
         symbolId: 'icon-[dir]-[name]', // 指定 symbolId 格式
         svgoOptions: {
