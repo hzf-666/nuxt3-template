@@ -3,8 +3,13 @@
     "./.comlint/.stylelintrc.json"
   ],
   "rules": {
-    "unit-no-unknown": [true, {
-      "ignoreUnits": ["rx"]
-    }]
+    "unit-no-unknown": [
+      true,
+      {
+        "ignoreUnits": [
+          "rx"
+        ]
+      }
+    ]
   }
 }
