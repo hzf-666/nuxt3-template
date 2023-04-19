@@ -1,4 +1,7 @@
+import { resolveStatic } from '../alias.js';
+
 export const utils = {
+  resolve: resolveStatic,
   typeOf,
   deepCopy,
   recursion,
