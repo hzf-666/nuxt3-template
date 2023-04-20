@@ -2,6 +2,8 @@ import axios from 'axios';
 import interceptor from './interceptor.js';
 import { isWhite } from '@/utils';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const sourceMap = {}, dev = process.dev,
   instance = axios.create({
     timeout: 15000, // 超时设置
@@ -11,7 +13,9 @@ const sourceMap = {}, dev = process.dev,
   },
   proxy = {
     '/api': {
-      target: dev ? 'http://localhost:6001' : '',
+      dev: apiUrl,
+      // prod: '',
+      // target: '',
       // rewrite: path => path.replace(/^\/api/, ''),
     },
   };
@@ -211,7 +215,13 @@ function getUrl(url) {
     result.baseURL = proxyItem;
   } else if (isObj(proxyItem)) {
     proxyItem.rewrite && (result.url = proxyItem.rewrite(url));
-    if (typeof proxyItem.target === 'string') result.baseURL = proxyItem.target;
+    if (typeof proxyItem.target === 'string') {
+      result.baseURL = proxyItem.target;
+    } else if (dev) {
+      if (typeof proxyItem.dev === 'string') result.baseURL = proxyItem.dev;
+    } else {
+      if (typeof proxyItem.prod === 'string') result.baseURL = proxyItem.prod;
+    }
   }
   return result;
 }
