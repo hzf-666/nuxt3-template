@@ -1,7 +1,9 @@
 node_modules
 .nuxt
-.output
 public
+.output
+.output.*
 dist
+dist.*
 !.*
 !.*.js
