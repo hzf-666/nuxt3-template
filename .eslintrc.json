@@ -38,6 +38,8 @@
     /* 自定义 */
     "store": "readonly",
     "cookie": "readonly",
+    "useListener": "readonly",
+    "useTimer": "readonly",
     "http": "readonly",
     "utils": "readonly"
   }

@@ -13,6 +13,11 @@ export default defineNuxtConfig({
     },
   },
   alias: getAlias(resolve),
+  imports: {
+    dirs: [
+      'hooks',
+    ],
+  },
   modules: [
     '@vueuse/nuxt',
   ],
