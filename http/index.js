@@ -1,6 +1,5 @@
 import axios from 'axios';
 import interceptor from './interceptor.js';
-import { isWhite } from '@/utils';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 

@@ -130,7 +130,7 @@ await http.all({
   resWeb: { fn: http, args: [['/api/web/website']] },
 }).then(({ resNav, resWeb }) => {
   if (resNav.code == 200) {
-    utils.recursion(resNav.data.list, (item, parent) => { // 处理导航菜单树形
+    recursion(resNav.data.list, (item, parent) => { // 处理导航菜单树形
       let id;
       item.routeId = item.bindId || item.id;
       item.level = parent ? parent.level + 1 : 0;

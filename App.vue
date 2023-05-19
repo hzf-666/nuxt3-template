@@ -8,7 +8,7 @@ onMounted(() => {
   showApp.value = true;
 });
 function onResize() {
-  const width = document.documentElement.clientWidth;
+  const width = parseFloat(getComputedStyle(document.documentElement).width);
   isMobile.value = width <= mobileMaxWidth;
   if (config.public.responsive) {
     document.documentElement.style.fontSize = `${ config.public.fontSizeScale * (width > mobileMaxWidth ? (standardWidth / 750 * 0.5) : (width / standardWidth)) }px`;

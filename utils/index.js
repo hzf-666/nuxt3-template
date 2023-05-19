@@ -1,13 +1,8 @@
 import { resolveStatic } from '../alias.js';
 
-export const utils = {
-  resolve: resolveStatic,
-  typeOf,
-  deepCopy,
-  recursion,
-};
+export const resolve = resolveStatic;
 
-function typeOf(target, type) { // 判断数据类型
+export function typeOf(target, type) { // 判断数据类型
   /**
    * undefined
    * null
@@ -30,7 +25,7 @@ function typeOf(target, type) { // 判断数据类型
   return type === undefined ? value : test();
 }
 
-function deepCopy(target) { // 数据深拷贝
+export function deepCopy(target) { // 数据深拷贝
   let result;
   const isObject = (val) => Object.prototype.toString.call(val) === '[object Object]';
   if (Array.isArray(target)) {
@@ -47,7 +42,7 @@ function deepCopy(target) { // 数据深拷贝
   return result;
 }
 
-function recursion(tree = [], callback, { children = 'children', parent = null } = {}) { // 树形递归
+export function recursion(tree = [], callback, { children = 'children', parent = null } = {}) { // 树形递归
   if (!(Array.isArray(tree) && tree.length)) return;
   for (let i = 0; i < tree.length; i++) {
     const item = tree[i], itemChildren = item[children];
@@ -56,6 +51,69 @@ function recursion(tree = [], callback, { children = 'children', parent = null }
       recursion(itemChildren, callback, { children, parent: item });
     }
   }
+}
+
+export function debounce(fn, delay) { // 防抖函数
+  let timerId;
+  return function(...args) {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
+
+export function throttle(fn, delay) { // 节流函数
+  let timerId;
+  return function(...args) {
+    if (!timerId) {
+      timerId = setTimeout(() => {
+        fn.apply(this, args);
+        timerId = null;
+      }, delay);
+    }
+  };
+}
+
+export function els(i) {
+  return {
+    overflow: 'hidden',
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': i,
+  };
+}
+
+export function openUrl(args = []) {
+  if (!args[0]) return;
+  window.open(args);
+}
+
+export function closeUrl(args = []) {
+  window.close(args);
+}
+
+export function isEqual(source, comparison) { // 判断两个数据是否完全相等
+  const getType = target => Object.prototype.toString.call(target),
+    iterable = data => Array.isArray(data) || getType(data) === '[object Object]';
+  if (!iterable(source)) {
+    return source === comparison;
+  }
+  if (getType(source) !== getType(comparison)) {
+    return false;
+  }
+  const sourceKeys = Object.keys(source),
+    comparisonKeys = Object.keys({ ...source, ...comparison });
+  if (sourceKeys.length !== comparisonKeys.length) {
+    return false;
+  }
+  return !comparisonKeys.some(key => {
+    if (iterable(source[key])) {
+      return !isEqual(source[key], comparison[key]);
+    } else {
+      return source[key] !== comparison[key];
+    }
+  });
 }
 
 export function isWhite(target, list = []) {

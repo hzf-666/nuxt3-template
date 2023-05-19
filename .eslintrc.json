@@ -41,6 +41,16 @@
     "useListener": "readonly",
     "useTimer": "readonly",
     "http": "readonly",
-    "utils": "readonly"
+    "resolve": "readonly",
+    "typeOf": "readonly",
+    "deepCopy": "readonly",
+    "recursion": "readonly",
+    "debounce": "readonly",
+    "throttle": "readonly",
+    "els": "readonly",
+    "openUrl": "readonly",
+    "closeUrl": "readonly",
+    "isEqual": "readonly",
+    "isWhite": "readonly"
   }
 }
