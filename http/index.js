@@ -25,7 +25,7 @@ let source = axios.CancelToken.source(),
 interceptor(instance);
 
 function http([httpURL, options] = [], config) {
-  const { baseURL, url } = getUrl(httpURL);
+  const { baseURL, url } = getHttpUrl(httpURL);
 
   options = {
     ...options,
@@ -203,7 +203,7 @@ http.all = function(requests, allConfig) {
   });
 };
 
-function getUrl(url) {
+function getHttpUrl(url) {
   const result = { baseURL: '', url };
   if (!(url && typeof url === 'string')) return result;
   let proxyItem;
