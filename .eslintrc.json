@@ -42,7 +42,7 @@
     "useListener": "readonly",
     "useTimer": "readonly",
     "http": "readonly",
-    "resolve": "readonly",
+    "getAsset": "readonly",
     "typeOf": "readonly",
     "deepCopy": "readonly",
     "recursion": "readonly",

@@ -1,7 +1,3 @@
-import { resolveStatic } from '../alias.js';
-
-export const resolve = resolveStatic;
-
 export function typeOf(target, type) { // 判断数据类型
   /**
    * undefined

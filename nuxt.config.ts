@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import pathe from 'pathe';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
-import { getAlias, resolve } from './alias.js';
+
+const resolve = (dir: string) => pathe.resolve(__dirname, dir);
 
 const fontSizeScale = 100;
 
@@ -12,7 +14,10 @@ export default defineNuxtConfig({
       vconsole: true,
     },
   },
-  alias: getAlias(resolve),
+  alias: {
+    '@': resolve('./'),
+    '@a': resolve('./assets'),
+  },
   imports: {
     dirs: [
       'hooks',
