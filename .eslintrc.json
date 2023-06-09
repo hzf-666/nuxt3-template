@@ -19,6 +19,7 @@
     "useRouter": "readonly",
     /* vue3 */
     "ref": "readonly",
+    "isRef": "readonly",
     "computed": "readonly",
     "watch": "readonly",
     "nextTick": "readonly",

@@ -14,17 +14,36 @@ export function useListener() {
 }
 
 export function useTimer() {
-  const timers = [];
-  const add = (interval, ...args) => {
-    const timer = (interval ? setInterval : setTimeout)(...args);
-    timers.push({ interval, timer });
+  let timers = [];
+  const add = (...args) => {
+    const timer = ref(setTimeout(...args));
+    timers.push({ timer });
     return timer;
   };
-  const clear = (interval, timer) => timer && (interval ? clearInterval : clearTimeout)(timer);
+  add.loop = (...args) => {
+    const timer = ref(setInterval(...args));
+    timers.push({ timer, interval: true });
+    return timer;
+  };
+  const clear = (timer) => {
+    if (isRef(timer)) {
+      const target = timers.find(item => item.timer === timer);
+      (target.interval ? clearInterval : clearTimeout)(timer.value);
+      timer.value = null;
+    }
+  };
+  const reset = (timer, ...args) => {
+    if (isRef(timer)) {
+      const target = timers.find(item => item.timer === timer);
+      (target.interval ? clearInterval : clearTimeout)(timer.value);
+      timer.value = (target.interval ? setInterval : setTimeout)(...args);
+    }
+  };
   onBeforeUnmount(() => {
-    timers.forEach(({ interval, timer }) => {
-      clear(interval, timer);
+    timers.forEach(({ timer }) => {
+      clear(timer);
     });
+    timers = [];
   });
-  return { add, clear };
+  return { add, clear, reset, all: () => timers };
 }
