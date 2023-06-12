@@ -2,7 +2,7 @@
 import pathe from 'pathe';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 
-const resolve = (dir: string) => pathe.resolve(__dirname, dir);
+const resolve = dir => pathe.resolve(__dirname, dir);
 
 const fontSizeScale = 100;
 
