@@ -5,10 +5,24 @@ if (process.client) {
     iconNames = ids;
   });
 }
-function onCopy(name) {
-  navigator.clipboard.writeText(`<SvgIcon name="${ name }" />`).then(() => {
-    alert(`已复制  ${ name }`);
-  });
+let copyInput;
+function onCopy(name, only = true) {
+  const str = only ? name : `<SvgIcon name="${ name }" />`;
+  if (!copyInput) {
+    copyInput = document.createElement('input');
+    copyInput.setAttribute('id', 'copyInput');
+    copyInput.style.position = 'fixed';
+    copyInput.style.zIndex = -9999;
+    document.body.appendChild(copyInput);
+  }
+  copyInput.value = str;
+  copyInput.select();
+  document.execCommand('Copy');
+  alert(`已复制  ${ str }`);
+}
+function onContextmenu(name, e) {
+  e.preventDefault();
+  onCopy(name, false);
 }
 </script>
 
@@ -16,7 +30,7 @@ function onCopy(name) {
   <div>
     <div class="icon_wrapper">
       <ClientOnly>
-        <div v-for="(iconName, i) in iconNames" :key="i" @click="onCopy(iconName)">
+        <div v-for="(iconName, i) in iconNames" :key="i" @click="onCopy(iconName)" @contextmenu="onContextmenu(iconName, $event)">
           <SvgIcon :name="iconName" />
         </div>
       </ClientOnly>

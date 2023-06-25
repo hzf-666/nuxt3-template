@@ -19,8 +19,7 @@ const sourceMap = {}, dev = process.dev,
     },
   };
 
-let source = axios.CancelToken.source(),
-  isLock = false, lockList = [];
+let source = axios.CancelToken.source();
 
 interceptor(instance);
 
@@ -32,6 +31,7 @@ function http([httpURL, options] = [], config) {
     cancelToken: source.token,
     data: options?.body || options?.data,
     baseURL,
+    args: arguments,
   };
   config = {
     mode: 'server',
@@ -57,9 +57,9 @@ function http([httpURL, options] = [], config) {
 
   if (options.body) delete options.body;
 
-  if (isLock) {
+  if (http.isLock) {
     return new Promise(resolve => {
-      lockList.push({ resolve, args: arguments });
+      http.lockList.push({ resolve, args: arguments });
     });
   }
 
@@ -124,16 +124,24 @@ http.abort = function(cancelToken, { message } = {}) {
   }
 };
 
-http.lock = function() {
-  isLock = true;
+http.isLock = false; http.lockList = [];
+http.lock = function(res, args, callback) {
+  if (isObj(res)) {
+    res.data = new Promise(resolve => {
+      http.lockList.push({ resolve, args });
+    });
+  }
+  if (!http.isLock) {
+    http.isLock = true;
+    callback && callback();
+  }
 };
-
 http.unlock = function() {
-  isLock = false;
-  lockList.forEach(({ resolve, args }) => {
-    resolve(http(...args));
+  setTimeout(() => {
+    http.isLock = false;
+    http.lockList.forEach(({ resolve, args }) => resolve(http(...args)));
+    http.lockList = [];
   });
-  lockList = [];
 };
 
 http.all = function(requests, allConfig) {
