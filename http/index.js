@@ -137,10 +137,17 @@ http.lock = function(res, args, callback) {
   }
 };
 http.unlock = function() {
-  setTimeout(() => {
-    http.isLock = false;
-    http.lockList.forEach(({ resolve, args }) => resolve(http(...args)));
-    http.lockList = [];
+  return new Promise((resolve) => {
+    setTimeout(async() => {
+      http.isLock = false;
+      Promise.all(http.lockList.map(({ args }) => http(...args))).then((resArr) => {
+        resArr.forEach((res, i) => {
+          http.lockList[i].resolve(res);
+        });
+        http.lockList = [];
+        resolve();
+      });
+    });
   });
 };
 
