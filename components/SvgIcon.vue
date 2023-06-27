@@ -33,6 +33,7 @@ const iconSize = computed(() => {
     fill="currentColor"
     class="icon_svg"
     :class="{
+      [name.replace(/-/g, '_')]: true,
       is_inline: inline,
       [`mb_size_${size}`]: size && !iconSize,
       icon_size: !!iconSize,

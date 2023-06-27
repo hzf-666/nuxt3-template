@@ -36,6 +36,7 @@
     /* vueuse */
     "useElementBounding": "readonly",
     "useElementSize": "readonly",
+    "useDraggable": "readonly",
     /* 自定义 */
     "store": "readonly",
     "cookie": "readonly",

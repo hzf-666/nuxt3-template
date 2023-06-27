@@ -16,7 +16,7 @@ const webInfo = store.useWebInfo();
   <div class="mb_nav_wrapper" :class="{is_fixed: isFixed}">
     <img :src="webInfo.logo" alt="">
 
-    <SvgIcon name="icon-more" class="icon_more" @click="emit('draw')" />
+    <SvgIcon name="icon-menu-more" @click="emit('draw')" />
   </div>
 </template>
 
@@ -31,8 +31,9 @@ const webInfo = store.useWebInfo();
     height: 65rx;
   }
 
-  .icon_more {
+  .icon_menu_more {
     font-size: 30rx;
+    color: #fff;
     cursor: pointer;
   }
 }

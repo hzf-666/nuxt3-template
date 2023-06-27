@@ -181,6 +181,8 @@ watch(currentRoute, (newRoute) => {
     <Meta name="keywords" :content="currentNav.keywords" />
   </Head>
 
+  <IconLibrary />
+
   <div class="s_box" :class="['default_layout', {pc_layout: !isMobile}, {mb_layout: isMobile}]">
     <Header />
     <div v-if="currentNav.path !== '/'" class="crumb_wrapper" :class="{is_mobile: isMobile}">
