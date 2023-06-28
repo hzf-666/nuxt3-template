@@ -37,7 +37,7 @@ function onContextmenu(name, e) {
 <template>
   <template v-if="dev">
     <div ref="el" class="icon_more_wrapper" :style="style" @dblclick="showIcons = true">
-      <SvgIcon name="icon-more" :size="20" color="#409EFF" />
+      <SvgIcon name="icon-more" />
     </div>
 
     <div v-if="showIcons" class="icon_lib_mask" @click.self="showIcons = false">
@@ -62,6 +62,11 @@ function onContextmenu(name, e) {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+
+  .icon_more {
+    font-size: 20px;
+    color: $colorPrimary;
+  }
 }
 
 .icon_lib_mask {
