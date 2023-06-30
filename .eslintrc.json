@@ -42,6 +42,7 @@
     "cookie": "readonly",
     "useListener": "readonly",
     "useTimer": "readonly",
+    "useHttp": "readonly",
     "http": "readonly",
     "getAsset": "readonly",
     "typeOf": "readonly",

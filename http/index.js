@@ -34,7 +34,6 @@ function http([httpURL, options] = [], config) {
     args: arguments,
   };
   config = {
-    mode: 'server',
     ...config,
     tipOptions: {
       show: true,
@@ -63,29 +62,36 @@ function http([httpURL, options] = [], config) {
     });
   }
 
+  const response = store.useResponse();
+  if (config.server) {
+    if (process.client) return;
+  } else {
+    if (process.server) return;
+  }
+
   return new Promise((resolve) => {
     let result = { code: 0, message: '', data: {} }, isShowTip = false, tipProps = {};
     isShowTip = config?.tipOptions?.show;
     tipProps = config?.tipOptions?.props;
 
-    if (!process[config.mode]) return resolve({ mode: config.mode });
-    if (config.mode === 'server') isShowTip = false;
+    if (process.server) isShowTip = false;
 
     const successTip = config?.tipOptions?.success, failTip = config?.tipOptions?.fail,
-      onResolve = (failed) => {
+      onResolve = () => {
         if (isWhite(url, white.message)) result.message = '';
-        if (failed) tipProps.type = 'fail';
+        tipProps.type = result.code == 200 ? 'success' : 'fail';
         if (isShowTip) showTip(result.message, tipProps);
         resolve(result);
+        if (config.server) {
+          response.value.set(config.key, result);
+        }
       };
 
     instance(url, options).then(res => {
       result = { ...result, ...res.data };
       if (result.code == 200) {
-        tipProps.type = 'success';
         if (successTip) result.message = successTip;
       } else {
-        tipProps.type = 'fail';
         if (failTip) result.message = failTip;
       }
       if (result.code == 401) { // 未传token
@@ -104,7 +110,7 @@ function http([httpURL, options] = [], config) {
       } else {
         result.message = '无法连接服务器！';
       }
-      onResolve(true);
+      onResolve();
     });
   });
 }
@@ -153,7 +159,6 @@ http.unlock = function() {
 
 http.all = function(requests, allConfig) {
   allConfig = {
-    mode: 'server',
     ...allConfig,
     tipOptions: {
       show: true,
@@ -170,7 +175,7 @@ http.all = function(requests, allConfig) {
   isShowTip = allConfig?.tipOptions?.show;
   tipProps = allConfig?.tipOptions?.props;
 
-  if (allConfig.mode === 'server') isShowTip = false;
+  if (process.server) isShowTip = false;
 
   const successTip = allConfig?.tipOptions?.success, failTip = allConfig?.tipOptions?.fail;
 
@@ -179,10 +184,9 @@ http.all = function(requests, allConfig) {
     if (isFn(fn)) {
       const [[url, options] = [], config] = Array.isArray(args) ? args : [];
 
-      return fn([url, options], {
+      return fn([url, { server: allConfig?.server, ...options }], {
         ...allConfig,
         ...config,
-        mode: allConfig.mode,
         tipOptions: {
           ...config?.tipOptions,
           show: false,
@@ -253,5 +257,9 @@ function isObj(val) {
 function isFn(val) {
   return ['[object Function]', '[object AsyncFunction]'].includes(Object.prototype.toString.call(val));
 }
+
+export {
+  white,
+};
 
 export default http;
