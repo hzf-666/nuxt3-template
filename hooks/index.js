@@ -66,9 +66,14 @@ export function useHttp(key, fn, { auth = false } = {}) {
     if (!args[configIndex]) args[configIndex] = {};
     args[configIndex].server = true;
     args[configIndex].key = key;
-    const res = await fn(...args);
-    return new Promise(resolve => {
-      resolve(res || response.value.get(key));
-    });
+    const res = await fn(...args), result = res || response.value.get(key);
+    if (result) {
+      return new Promise(resolve => {
+        resolve(result);
+      });
+    } else {
+      args[configIndex].server = false;
+      return fn(...args);
+    }
   };
 }
