@@ -48,13 +48,13 @@ export function useTimer() {
   return { add, clear, reset, all: () => timers };
 }
 
-export function useHttp(key, fn, { auth = false } = {}) {
+export function useHttp(fn, key, { auth = false } = {}) {
   return async function(...args) {
     const response = store.useResponse(), token = cookie.useToken();
     let optionsIndex = 0, configIndex = 1;
-    if (args.length > 2) {
-      optionsIndex = args.length - 2;
-      configIndex = args.length - 1;
+    if (fn.length > 2) {
+      optionsIndex = fn.length - 2;
+      configIndex = fn.length - 1;
     }
     if (!args[optionsIndex]) args[optionsIndex] = {};
     if (auth) {

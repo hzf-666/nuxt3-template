@@ -83,7 +83,7 @@ function http([httpURL, options] = [], config) {
         if (isShowTip) showTip(result.message, tipProps);
         resolve(result);
         if (config.server) {
-          response.value.set(config.key, result);
+          config.key && response.value.set(config.key, result);
         }
       };
 
