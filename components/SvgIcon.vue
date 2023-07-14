@@ -22,9 +22,10 @@ const props = defineProps({
 const isMobile = store.useIsMobile(), config = useRuntimeConfig();
 
 const iconSize = computed(() => {
-  if (!size.value) return '';
-  return isNaN(Number(size.value)) ? size.value : config.public.responsive && isMobile.value ? '' : `${ size.value }px`;
-});
+    if (!size.value) return '';
+    return isNaN(Number(size.value)) ? size.value : config.public.responsive && isMobile.value ? '' : `${ size.value }px`;
+  }),
+  iconMbSize = computed(() => rx(size.value));
 </script>
 
 <template>
@@ -35,7 +36,7 @@ const iconSize = computed(() => {
     :class="{
       [name.replace(/-/g, '_')]: true,
       is_inline: inline,
-      [`mb_size_${size}`]: size && !iconSize,
+      icon_mb_size: size && !iconSize,
       icon_size: !!iconSize,
     }"
     :style="{color}"
@@ -45,12 +46,6 @@ const iconSize = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-@for $i from 1 through 100 {
-  .icon_svg.mb_size_#{$i} {
-    font-size: #{$i}rx;
-  }
-}
-
 .icon_svg {
   display: inline-flex;
   align-items: center;
@@ -66,6 +61,10 @@ const iconSize = computed(() => {
 
   &.icon_size {
     font-size: v-bind(iconSize);
+  }
+
+  &.icon_mb_size {
+    font-size: v-bind(iconMbSize);
   }
 }
 </style>

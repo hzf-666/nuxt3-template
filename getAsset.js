@@ -1,4 +1,4 @@
-const assets = import.meta.glob(['/assets/image/**/*'], { eager: true });
+const assets = import.meta.glob(['/assets/*', '/assets/image/**/*'], { eager: true });
 const staticMap = {};
 
 for (const k in assets) {
