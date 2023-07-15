@@ -21,11 +21,17 @@ const props = defineProps({
 
 const isMobile = store.useIsMobile(), config = useRuntimeConfig();
 
-const iconSize = computed(() => {
-    if (!size.value) return '';
-    return isNaN(Number(size.value)) ? size.value : config.public.responsive && isMobile.value ? '' : `${ size.value }px`;
+const isMb = computed(() => config.public.responsive && isMobile.value),
+  iconSize = computed(() => {
+    const _size = Number(size.value);
+    if (isNaN(_size) || isMb.value) return '';
+    return `${ _size }px`;
   }),
-  iconMbSize = computed(() => rx(size.value));
+  iconMbSize = computed(() => {
+    const _size = Number(size.value);
+    if (isNaN(_size) || !isMb.value) return '';
+    return rx(_size);
+  });
 </script>
 
 <template>
@@ -36,8 +42,8 @@ const iconSize = computed(() => {
     :class="{
       [name.replace(/-/g, '_')]: true,
       is_inline: inline,
-      icon_mb_size: size && !iconSize,
-      icon_size: !!iconSize,
+      icon_mb_size: iconMbSize,
+      icon_size: iconSize,
     }"
     :style="{color}"
   >
@@ -59,12 +65,12 @@ const iconSize = computed(() => {
     margin-top: -0.15em;
   }
 
-  &.icon_size {
-    font-size: v-bind(iconSize);
-  }
-
   &.icon_mb_size {
     font-size: v-bind(iconMbSize);
+  }
+
+  &.icon_size {
+    font-size: v-bind(iconSize);
   }
 }
 </style>
