@@ -1,30 +1,15 @@
 import axios from 'axios';
 import interceptor from './interceptor.js';
+import { white, createInstance, getHttpURL, isObj } from './config.js';
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
-const sourceMap = {}, dev = process.dev,
-  instance = axios.create({
-    timeout: 15000, // 超时设置
-  }),
-  white = {
-    message: [],
-  },
-  proxy = {
-    '/api': {
-      dev: apiUrl,
-      // prod: '',
-      // target: '',
-      // rewrite: path => path.replace(/^\/api/, ''),
-    },
-  };
+const sourceMap = {}, instance = createInstance();
 
 let source = axios.CancelToken.source();
 
 interceptor(instance);
 
 function http([httpURL, options] = [], config) {
-  const { baseURL, url } = getHttpUrl(httpURL);
+  const { baseURL, url } = getHttpURL(httpURL);
 
   options = {
     ...options,
@@ -222,44 +207,14 @@ http.all = function(requests, allConfig) {
   });
 };
 
-function getHttpUrl(url) {
-  const result = { baseURL: '', url };
-  if (!(url && typeof url === 'string')) return result;
-  let proxyItem;
-  for (const k in proxy) {
-    if (url.startsWith(k)) proxyItem = proxy[k];
-  }
-  if (typeof proxyItem === 'string') {
-    result.baseURL = proxyItem;
-  } else if (isObj(proxyItem)) {
-    proxyItem.rewrite && (result.url = proxyItem.rewrite(url));
-    if (typeof proxyItem.target === 'string') {
-      result.baseURL = proxyItem.target;
-    } else if (dev) {
-      if (typeof proxyItem.dev === 'string') result.baseURL = proxyItem.dev;
-    } else {
-      if (typeof proxyItem.prod === 'string') result.baseURL = proxyItem.prod;
-    }
-  }
-  return result;
-}
-
 function showTip(msg, options = {}) {
   if (msg) {
     alert(msg);
   }
 }
 
-function isObj(val) {
-  return Object.prototype.toString.call(val) === '[object Object]';
-}
-
 function isFn(val) {
   return ['[object Function]', '[object AsyncFunction]'].includes(Object.prototype.toString.call(val));
 }
-
-export {
-  white,
-};
 
 export default http;
