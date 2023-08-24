@@ -48,6 +48,7 @@
     "typeOf": "readonly",
     "deepCopy": "readonly",
     "recursion": "readonly",
+    "delayPromise": "readonly",
     "debounce": "readonly",
     "throttle": "readonly",
     "els": "readonly",

@@ -49,6 +49,14 @@ export function recursion(tree = [], callback, { children = 'children', parent =
   }
 }
 
+export function delayPromise(promise, delay = 1000) {
+  return new Promise((resolve, reject) => {
+    Promise.all([promise, new Promise((rs) => {
+      setTimeout(rs, delay);
+    })]).then(res => resolve(res[0])).catch(reject);
+  });
+}
+
 export function debounce(fn, delay) { // 防抖函数
   let timerId;
   return function(...args) {
