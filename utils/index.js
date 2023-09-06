@@ -95,13 +95,13 @@ export function rx(size) {
   return `${ size / fontSizeScale }rem`;
 }
 
-export function openUrl(args = []) {
+export function openUrl(...args) {
   if (!args[0]) return;
-  window.open(args);
+  window.open(...args);
 }
 
-export function closeUrl(args = []) {
-  window.close(args);
+export function closeUrl(...args) {
+  window.close(...args);
 }
 
 export function isEqual(source, comparison) { // 判断两个数据是否完全相等
