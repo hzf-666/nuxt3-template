@@ -115,10 +115,26 @@ body {
   flex-shrink: 1 !important;
 }
 
-.f_0 {
+.f_00a {
   flex: 0 0 auto !important;
 }
 
-.f_1 {
+.f_01a {
+  flex: 0 1 auto !important;
+}
+
+.f_10a {
+  flex: 1 0 auto !important;
+}
+
+.f_11a {
   flex: 1 1 auto !important;
+}
+
+.f_0 {
+  flex: 0 !important;
+}
+
+.f_1 {
+  flex: 1 !important;
 }

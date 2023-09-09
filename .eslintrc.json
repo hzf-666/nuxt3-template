@@ -56,6 +56,7 @@
     "openUrl": "readonly",
     "closeUrl": "readonly",
     "isEqual": "readonly",
-    "isWhite": "readonly"
+    "isWhite": "readonly",
+    "numberToChinese": "readonly"
   }
 }

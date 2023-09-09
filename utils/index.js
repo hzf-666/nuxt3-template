@@ -139,3 +139,15 @@ export function isWhite(target, list = []) {
   }
   return flag;
 }
+
+export function numberToChinese(number) {
+  const chineseNumbers = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+  const chineseUnits = ['', '十', '百', '千', '万', '亿'];
+  let result = '';
+  const numberString = String(number);
+  for (let i = 0; i < numberString.length; i++) {
+    const digit = parseInt(numberString.charAt(i));
+    result += chineseNumbers[digit] + chineseUnits[numberString.length - i - 1];
+  }
+  return result;
+}
