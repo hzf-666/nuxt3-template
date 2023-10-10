@@ -6,6 +6,7 @@
   },
   "scripts": {
     "build": "nuxt build",
+    "build:test": "set VITE_MODE=development&&nuxt build",
     "start": "npm run dev -- --open",
     "dev": "env-cmd -x nuxt dev --port=$VITE_PORT",
     "generate": "nuxt generate",

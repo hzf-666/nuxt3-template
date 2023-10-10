@@ -1,11 +1,16 @@
 <script setup>
-const dev = import.meta.env.DEV;
+const { VITE_MODE, MODE } = import.meta.env, modeDev = (VITE_MODE || MODE) === 'development';
+
+const baseURL = store.useBaseURL();
+function onInput(e) {
+  sessionStorage.setItem('baseURL', e.target.value);
+}
 
 const el = ref(null), { style } = useDraggable(el, {
   initialValue: { x: 10, y: 10 },
 });
 
-const showIcons = ref(false);
+const visible = ref(false);
 
 let iconNames = [];
 if (process.client) {
@@ -35,13 +40,18 @@ function onContextmenu(name, e) {
 </script>
 
 <template>
-  <template v-if="dev">
-    <div ref="el" class="icon_more_wrapper" :style="style" @dblclick="showIcons = true">
+  <template v-if="modeDev">
+    <div ref="el" class="icon_more_wrapper" :style="style" @dblclick="visible = true">
       <SvgIcon name="icon-more" />
     </div>
 
-    <div v-if="showIcons" class="icon_lib_mask" @click.self="showIcons = false">
-      <div class="icon_lib_main">
+    <div v-if="visible" class="config_mask" @click.self="visible = false">
+      <div class="config_main">
+        <div class="base_url">
+          <span>接口地址：</span>
+          <input v-model="baseURL" @input="onInput">
+        </div>
+
         <div class="icon_wrapper">
           <div v-for="(iconName, i) in iconNames" :key="i" @click="onCopy(iconName)" @contextmenu="onContextmenu(iconName, $event)">
             <SvgIcon :name="iconName" />
@@ -69,7 +79,7 @@ function onContextmenu(name, e) {
   }
 }
 
-.icon_lib_mask {
+.config_mask {
   position: fixed;
   top: 0;
   right: 0;
@@ -79,13 +89,29 @@ function onContextmenu(name, e) {
   overflow: auto;
   background-color: rgb(0 0 0 / 30%);
 
-  .icon_lib_main {
+  .config_main {
     width: 80%;
     padding: 20px;
     margin: 15vh auto;
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 12px 32px 4px rgb(0 0 0 / 4%), 0 8px 20px rgb(0 0 0 / 8%);
+  }
+}
+
+.base_url {
+  padding-bottom: 15px;
+
+  > span {
+    padding-right: 10px;
+  }
+
+  > input {
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    outline: none;
   }
 }
 

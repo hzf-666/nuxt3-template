@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const { MODE, VITE_API_URL, VITE_PROD_API_URL } = import.meta.env, modeDev = MODE === 'development';
+const { VITE_MODE, MODE, VITE_API_URL, VITE_PROD_API_URL } = import.meta.env, modeDev = (VITE_MODE || MODE) === 'development';
 
 const proxy = {
   '/api': {
@@ -35,7 +35,7 @@ export function getHttpURL(url) {
     if (typeof proxyItem.target === 'string') {
       result.baseURL = proxyItem.target;
     } else if (modeDev) {
-      if (typeof proxyItem.dev === 'string') result.baseURL = proxyItem.dev;
+      if (typeof proxyItem.dev === 'string') result.baseURL = store.useBaseURL().value || proxyItem.dev;
     } else {
       if (typeof proxyItem.prod === 'string') result.baseURL = proxyItem.prod;
     }

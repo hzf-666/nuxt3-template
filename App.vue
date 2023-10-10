@@ -1,4 +1,10 @@
 <script setup>
+const baseURL = store.useBaseURL();
+if (process.client) {
+  const _baseURL = sessionStorage.getItem('baseURL');
+  if (_baseURL) baseURL.value = _baseURL;
+}
+
 const showApp = ref(false), isMobile = store.useIsMobile(), config = useRuntimeConfig();
 const standardWidth = 750, mobileMaxWidth = 900; // 移动端设计图基准宽度，最大移动设备宽度
 const listener = useListener();

@@ -181,7 +181,7 @@ watch(currentRoute, (newRoute) => {
     <Meta name="keywords" :content="currentNav.keywords" />
   </Head>
 
-  <IconLibrary />
+  <Config />
 
   <div class="s_box" :class="['default_layout', {pc_layout: !isMobile}, {mb_layout: isMobile}]">
     <Header />
