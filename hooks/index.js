@@ -1,3 +1,7 @@
+import signalr from './signalr.js';
+
+export const useSignalr = signalr;
+
 export function useListener() {
   const listeners = [];
   const add = (event, ...args) => {
