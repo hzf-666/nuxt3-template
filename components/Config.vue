@@ -1,7 +1,7 @@
 <script setup>
 const { VITE_MODE, MODE } = import.meta.env, modeDev = (VITE_MODE || MODE) === 'development';
 
-const baseURL = store.useBaseURL();
+const baseURL = store.useBaseURL(), isMobile = store.useIsMobile();
 function onInput(e) {
   sessionStorage.setItem('baseURL', e.target.value);
 }
@@ -40,7 +40,7 @@ function onContextmenu(name, e) {
 </script>
 
 <template>
-  <template v-if="modeDev">
+  <template v-if="modeDev && !isMobile">
     <div ref="el" class="icon_more_wrapper" :style="style" @dblclick="visible = true">
       <SvgIcon name="icon-more" />
     </div>
