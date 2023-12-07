@@ -49,9 +49,9 @@ function http([httpURL, options] = [], config) {
 
   const response = store.useResponse();
   if (config.server) {
-    if (process.client) return;
+    if (process.client) return config.key ? response.value.get(config.key) : null;
   } else {
-    if (process.server) return;
+    if (process.server) return null;
   }
 
   return new Promise((resolve) => {
@@ -170,6 +170,7 @@ http.all = function(requests, allConfig) {
       const [[url, options] = [], config] = Array.isArray(args) ? args : [];
 
       return fn([url, { server: allConfig?.server, ...options }], {
+        server: true,
         ...allConfig,
         ...config,
         tipOptions: {
