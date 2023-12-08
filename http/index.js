@@ -49,7 +49,14 @@ function http([httpURL, options] = [], config) {
 
   const response = store.useResponse();
   if (config.server) {
-    if (process.client) return config.key ? response.value.get(config.key) : null;
+    if (process.client) {
+      if (config.key) {
+        const result = response.value.get(config.key);
+        if (result) return result;
+      } else {
+        return null;
+      }
+    }
   } else {
     if (process.server) return null;
   }
