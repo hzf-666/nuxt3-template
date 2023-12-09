@@ -1,23 +1,23 @@
 <script setup>
 const props = defineProps({
-    name: {
-      type: [String],
-      default: () => (''),
-    },
-    size: {
-      type: [Number, String],
-      default: () => (null),
-    },
-    color: {
-      type: [String],
-      default: () => (''),
-    },
-    inline: {
-      type: [Boolean],
-      default: () => (false),
-    },
-  }),
-  { name, size, color, inline } = toRefs(props);
+  name: {
+    type: [String],
+    default: () => (''),
+  },
+  size: {
+    type: [Number, String],
+    default: () => (null),
+  },
+  color: {
+    type: [String],
+    default: () => (''),
+  },
+  inline: {
+    type: [Boolean],
+    default: () => (false),
+  },
+});
+const { name, size, color, inline } = toRefs(props);
 
 const isMobile = store.useIsMobile(), config = useRuntimeConfig();
 

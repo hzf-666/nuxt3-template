@@ -1,11 +1,11 @@
 <script setup>
 const props = defineProps({
-    isFixed: {
-      type: [Boolean],
-      default: () => (false),
-    },
-  }),
-  { isFixed } = toRefs(props);
+  isFixed: {
+    type: [Boolean],
+    default: () => (false),
+  },
+});
+const { isFixed } = toRefs(props);
 
 const emit = defineEmits(['draw']);
 

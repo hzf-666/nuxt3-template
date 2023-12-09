@@ -1,15 +1,15 @@
 <script setup>
 const props = defineProps({
-    isFixed: {
-      type: [Boolean],
-      default: () => (false),
-    },
-    navList: {
-      type: [Array],
-      default: () => ([]),
-    },
-  }),
-  { isFixed, navList } = toRefs(props);
+  isFixed: {
+    type: [Boolean],
+    default: () => (false),
+  },
+  navList: {
+    type: [Array],
+    default: () => ([]),
+  },
+});
+const { isFixed, navList } = toRefs(props);
 
 const currentNav = store.useCurrentNav(),
   webInfo = store.useWebInfo();
