@@ -13,13 +13,21 @@ const { html } = toRefs(props);
 </template>
 
 <style lang="scss" scoped>
-.rich_text :deep(> *) {
-  &:first-child {
-    margin-top: 0;
-  }
+.rich_text {
+  :deep() {
+    > * {
+      &:first-child {
+        margin-top: 0;
+      }
 
-  &:last-child {
-    margin-bottom: 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    img {
+      max-width: 100%;
+    }
   }
 }
 </style>
