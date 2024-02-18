@@ -10,6 +10,14 @@
           "rx"
         ]
       }
+    ],
+    "property-no-vendor-prefix": [
+      true,
+      {
+        "ignoreProperties": [
+          "background-clip"
+        ]
+      }
     ]
   }
 }
