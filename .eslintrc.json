@@ -56,6 +56,7 @@
     "rx": "readonly",
     "openUrl": "readonly",
     "closeUrl": "readonly",
+    "downloadUrl": "readonly",
     "isEqual": "readonly",
     "isWhite": "readonly",
     "numberToChinese": "readonly"

@@ -104,6 +104,25 @@ export function closeUrl(...args) {
   window.close(...args);
 }
 
+export function downloadUrl(url, { success, fail } = {}) {
+  fetch(url).then(response => response.blob()).then(blob => {
+    const objectUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = objectUrl;
+    link.download = url.replace(/.*\//, '');
+    link.style.position = 'fixed';
+    link.style.zIndex = -999;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(objectUrl);
+    success?.();
+  }).catch(() => {
+    console.error('下载失败');
+    fail?.();
+  });
+}
+
 export function isEqual(source, comparison) { // 判断两个数据是否完全相等
   const getType = target => Object.prototype.toString.call(target),
     iterable = data => Array.isArray(data) || getType(data) === '[object Object]';
